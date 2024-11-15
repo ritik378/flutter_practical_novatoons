@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loading_btn/loading_btn.dart';
 import 'package:nova_demo/common/app_color.dart';
 import 'package:nova_demo/common/app_fonts.dart';
-import 'package:nova_demo/common/common_ui.dart';
+import 'package:nova_demo/common/common_logics.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton(
@@ -13,7 +13,7 @@ class CustomButton extends StatelessWidget {
       this.buttonColor = AppColor.customGreen,
       this.buttonNameColor = AppColor.customWhite,
       this.buttonNameSize = 18.0,
-      this.buttonNameFamily = AppFonts.bold,this.buttonBorderRadius=62.0,required this.onPressed});
+      this.buttonNameFamily = AppFonts.bold,this.buttonBorderRadius=62.0,required this.onPressed,});
 
   final Color buttonColor;
   final double buttonHeight;
@@ -41,7 +41,7 @@ class CustomButton extends StatelessWidget {
           Colors.white,
         ),
       ),
-      child: CommonUi.commonText(buttonName,
+      child: CommonLogics.commonText(buttonName,
           color: buttonNameColor,
           fontSize: buttonNameSize,
           fontFamily: buttonNameFamily),

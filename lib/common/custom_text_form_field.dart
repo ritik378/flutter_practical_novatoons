@@ -15,6 +15,9 @@ class CustomTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.obscure=false,
     this.controller,
+    this.validator,
+    this.readOnly=false,
+    this.onTap
   });
 
   final String? hintText;
@@ -27,12 +30,19 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? suffixIcon;
   final bool obscure;
   final TextEditingController? controller;
+  final String? Function(String?)? validator;
+  final bool readOnly;
+  final void Function()? onTap;
+
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       obscureText: obscure,
       controller: controller,
+      validator: validator,
+      readOnly: readOnly,
+      onTap: onTap,
       cursorColor: AppColor.customWhite,
       style: TextStyle(
           color: inputTextColor,
@@ -50,10 +60,16 @@ class CustomTextFormField extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5), borderSide: const BorderSide(color: AppColor.customWhiteOpacity),
         ),
-        focusedBorder: OutlineInputBorder(
+        focusedBorder:
+        OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),borderSide: const BorderSide(color: AppColor.customWhiteOpacity),
         ),
-
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(5),borderSide: const BorderSide(color: AppColor.customWhiteOpacity),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(5),borderSide: const BorderSide(color: AppColor.customWhiteOpacity),
+        ),
       ),
     );
   }
