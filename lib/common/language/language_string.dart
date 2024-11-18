@@ -14,7 +14,14 @@ class LanguageString {
   static const String lastName = "lastName";
   static const String enterLastName = "enterLastName";
   static const String dob = "dob";
-  static const String selectDate='selectDate';
-  static const String gender='gender';
-  static const String selectGender='selectGender';
+  static const String selectDate = 'selectDate';
+  static const String gender = 'gender';
+  static const String selectGender = 'selectGender';
+  static const String male = 'male';
+  static const String female = 'female';
+  static const String other = 'other';
+  static const String creatorCheck = 'creatorCheck';
+  static const String isCreatorOfColor = 'isCreatorOfColor';
+  static const String next = 'next';
+  static const String alreadyHaveAccount = "alreadyHaveAccount";
 }

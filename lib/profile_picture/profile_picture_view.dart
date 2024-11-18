@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nova_demo/common/app_color.dart';
 import 'package:nova_demo/common/app_fonts.dart';
 import 'package:nova_demo/common/common_logics.dart';
+import 'package:nova_demo/navigation/app_routes.dart';
 import 'package:nova_demo/profile_picture/profile_picture_controller.dart';
 
 class ProfilePictureView extends StatelessWidget {
@@ -33,12 +34,16 @@ class ProfilePictureView extends StatelessWidget {
                     child: CommonLogics.setPngImage('back_arrow',
                         height: 24, width: 24),
                   ),
-                  CommonLogics.commonText(
-                    'Skip',
-                    fontSize: 16.0,
-                    color: AppColor.customWhite,
-                    fontFamily: AppFonts.medium,
-                  ),
+                  GestureDetector(
+                      onTap: () {
+                        Get.offAllNamed(AppRoutes.dashboard);
+                      },
+                      child: CommonLogics.commonText(
+                        'Skip',
+                        fontSize: 16.0,
+                        color: AppColor.customWhite,
+                        fontFamily: AppFonts.medium,
+                      )),
                 ],
               ),
               const SizedBox(height: 34),

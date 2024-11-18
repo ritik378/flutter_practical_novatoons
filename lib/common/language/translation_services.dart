@@ -26,6 +26,13 @@ class TranslationServices extends Translations {
       LanguageString.gender:'Gender',
       LanguageString.selectDate:'Select Date',
       LanguageString.selectGender:'Select Gender',
+      LanguageString.male :'Male',
+      LanguageString.female:'Female',
+      LanguageString.other:'Other',
+      LanguageString.creatorCheck:'If you are a creator, please check the option if it applies to you. ',
+      LanguageString.isCreatorOfColor:'I am a Creator that is Black, African or a person of Color',
+      LanguageString.next:'Next',
+      LanguageString.alreadyHaveAccount:'Already have an account? '
     },
     // Hindi translations
     'hi_IN': {

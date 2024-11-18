@@ -1,8 +1,10 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:nova_demo/common/app_color.dart';
 import 'package:nova_demo/common/app_fonts.dart';
+import 'package:nova_demo/common/app_keys.dart';
 import 'package:nova_demo/common/common_logics.dart';
 import 'package:nova_demo/common/custom_button.dart';
 import 'package:nova_demo/common/custom_text_form_field.dart';
@@ -73,9 +75,6 @@ class SignInView extends StatelessWidget {
                   return CustomTextFormField(
                     hintText: LanguageString.enterPassword.tr,
                     obscure: !signInController.passwordVisible.value,
-                    validator: (value) {
-                      return CommonLogics.passwordValidator(value);
-                    },
                     suffixIcon: GestureDetector(
                       onTap: signInController.changePasswordVisibility,
                       child: Padding(
@@ -100,8 +99,10 @@ class SignInView extends StatelessWidget {
                     onPressed: (startLoading, stopLoading, btnState) {
                       if (signInController.formKey.currentState!.validate()) {
                         startLoading();
-                        Future.delayed(const Duration(seconds: 2), () {
+                        Future.delayed(const Duration(seconds: 1), () {
                           stopLoading();
+                          GetStorage().write(AppKeys.isLogin, true);
+                          print(GetStorage().read(AppKeys.isLogin));
                         });
                       }
                     },

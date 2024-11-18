@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:nova_demo/common/app_color.dart';
 import 'package:nova_demo/common/common_logics.dart';

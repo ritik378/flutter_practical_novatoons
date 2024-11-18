@@ -7,7 +7,7 @@ import 'package:nova_demo/common/app_fonts.dart';
 class CommonLogics {
   static setPngImage(String imageName, {double? height, double? width}) {
     return Image.asset('assets/images/$imageName.png',
-        height: height, width: width,color: Colors.white,);
+        height: height, width: width);
   }
 
   static setSvgImage(String imageName, {double? height, double? width}) {

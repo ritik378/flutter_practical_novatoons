@@ -12,6 +12,16 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>NSCameraUsageDescription</key>
+    <string>We need camera access to...</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>We need microphone access to</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>We need location access to</string>
+
+
+
+
 	<key>CFBundleName</key>
 	<string>nova_demo</string>
 	<key>CFBundlePackageType</key>

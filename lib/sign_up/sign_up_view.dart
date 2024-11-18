@@ -29,6 +29,8 @@ class SignUpView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+
+                  /// navigate to the previous screen.
                   GestureDetector(
                     onTap: () {
                       Get.back();
@@ -37,8 +39,12 @@ class SignUpView extends StatelessWidget {
                         height: 24, width: 24),
                   ),
                   const SizedBox(height: 34),
+
+                  /// Sign-up text.
                   CommonLogics.commonText(LanguageString.signUp.tr),
                   const SizedBox(height: 3),
+
+                  /// Instructional for sign-up.
                   CommonLogics.commonText(
                     LanguageString.signUpPrompt.tr,
                     fontFamily: AppFonts.regular,
@@ -46,6 +52,8 @@ class SignUpView extends StatelessWidget {
                     color: AppColor.customGray,
                   ),
                   const SizedBox(height: 35),
+
+                  /// First name label.
                   CommonLogics.commonText(
                     LanguageString.firstName.tr,
                     fontFamily: AppFonts.bold,
@@ -53,10 +61,14 @@ class SignUpView extends StatelessWidget {
                     color: AppColor.customWhite,
                   ),
                   const SizedBox(height: 10),
+
+                  /// First name input field.
                   CustomTextFormField(
                     hintText: LanguageString.enterFirstName.tr,
                   ),
                   const SizedBox(height: 22),
+
+                  /// Last name label.
                   CommonLogics.commonText(
                     LanguageString.lastName.tr,
                     fontFamily: AppFonts.bold,
@@ -64,10 +76,14 @@ class SignUpView extends StatelessWidget {
                     color: AppColor.customWhite,
                   ),
                   const SizedBox(height: 10),
+
+                  /// Last name input field.
                   CustomTextFormField(
                     hintText: LanguageString.enterLastName.tr,
                   ),
                   const SizedBox(height: 22),
+
+                  /// Email label.
                   CommonLogics.commonText(
                     LanguageString.email.tr,
                     fontFamily: AppFonts.bold,
@@ -75,6 +91,8 @@ class SignUpView extends StatelessWidget {
                     color: AppColor.customWhite,
                   ),
                   const SizedBox(height: 10),
+
+                  /// Email input field with validation.
                   CustomTextFormField(
                     hintText: LanguageString.enterEmail.tr,
                     validator: (value) {
@@ -82,6 +100,8 @@ class SignUpView extends StatelessWidget {
                     },
                   ),
                   const SizedBox(height: 22),
+
+                  /// Password label.
                   CommonLogics.commonText(
                     LanguageString.password.tr,
                     fontFamily: AppFonts.bold,
@@ -89,6 +109,8 @@ class SignUpView extends StatelessWidget {
                     color: AppColor.customWhite,
                   ),
                   const SizedBox(height: 10),
+
+                  /// Password input field with visibility toggle.
                   Obx(() {
                     return CustomTextFormField(
                       hintText: LanguageString.enterPassword.tr,
@@ -119,6 +141,8 @@ class SignUpView extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+
+                              /// Date of birth label.
                               CommonLogics.commonText(
                                 LanguageString.dob.tr,
                                 fontFamily: AppFonts.bold,
@@ -126,9 +150,11 @@ class SignUpView extends StatelessWidget {
                                 color: AppColor.customWhite,
                               ),
                               const SizedBox(height: 10),
+
+                              /// Date of birth input field with date picker.
                               CustomTextFormField(
                                 controller: signUpController.dateController,
-                                hintText: 'Select Date',
+                                hintText: LanguageString.selectDate.tr,
                                 readOnly: true,
                                 onTap: () async {
                                   signUpController.onTapDate(context);
@@ -147,6 +173,8 @@ class SignUpView extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+
+                              /// Gender label.
                               CommonLogics.commonText(
                                 LanguageString.gender.tr,
                                 fontFamily: AppFonts.bold,
@@ -154,10 +182,12 @@ class SignUpView extends StatelessWidget {
                                 color: AppColor.customWhite,
                               ),
                               const SizedBox(height: 10),
+
+                              /// Gender selection dropdown.
                               Obx(() {
                                 return DropdownButtonFormField<String>(
                                   value: signUpController
-                                          .selectedGender.value.isEmpty
+                                      .selectedGender.value.isEmpty
                                       ? null
                                       : signUpController.selectedGender.value,
                                   hint: Text(
@@ -175,8 +205,11 @@ class SignUpView extends StatelessWidget {
                                       borderSide: BorderSide.none,
                                     ),
                                   ),
-                                  items: <String>['Male', 'Female', 'Other']
-                                      .map((String gender) {
+                                  items: <String>[
+                                    LanguageString.male.tr,
+                                    LanguageString.female.tr,
+                                    LanguageString.other.tr
+                                  ].map((String gender) {
                                     return DropdownMenuItem<String>(
                                       value: gender,
                                       child: CommonLogics.commonText(gender,
@@ -197,8 +230,9 @@ class SignUpView extends StatelessWidget {
                       ],
                     ),
                   ),
-                  CommonLogics.commonText(
-                      'If you are a creator, please check the optionif it applies to you. ',
+
+                  /// Checkbox for creator check.
+                  CommonLogics.commonText(LanguageString.creatorCheck.tr,
                       fontSize: 14.0,
                       color: AppColor.customLightGray,
                       fontFamily: AppFonts.medium),
@@ -212,19 +246,23 @@ class SignUpView extends StatelessWidget {
                               signUpController.checkBoxTap();
                             });
                       }),
-                      CommonLogics.commonText(
-                          'I am a Creator that is Black, African or a person of Color',
-                          fontFamily: AppFonts.regular,
-                          fontSize: 13.0,
-                          color: AppColor.customGray)
+                      Expanded(
+                        child: CommonLogics.commonText(
+                            LanguageString.isCreatorOfColor.tr,
+                            fontFamily: AppFonts.regular,
+                            fontSize: 13.0,
+                            color: AppColor.customGray),
+                      )
                     ],
                   ),
                   const SizedBox(
                     height: 54,
                   ),
+
+                  /// Next button to proceed to the profile picture upload.
                   Center(
                     child: CustomButton(
-                      buttonName: 'Next',
+                      buttonName: LanguageString.next.tr,
                       onPressed: (startLoading, stopLoading, btnState) {
                         if (true
                         // signUpController.signUpFormKey.currentState!
@@ -242,6 +280,8 @@ class SignUpView extends StatelessWidget {
                   const SizedBox(
                     height: 25,
                   ),
+
+                  /// Social media sign-up options.
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -255,6 +295,8 @@ class SignUpView extends StatelessWidget {
                   const SizedBox(
                     height: 30,
                   ),
+
+                  /// Rich text for navigating to the sign-in page.
                   Center(
                     child: RichText(
                       text: TextSpan(
@@ -274,9 +316,9 @@ class SignUpView extends StatelessWidget {
                                 //Get.toNamed(AppRoutes.signIn);
                                 Get.offAllNamed(AppRoutes.signIn);
                               },
-                              child: const Text(
-                                'Login',
-                                style: TextStyle(
+                              child: Text(
+                                LanguageString.login.tr,
+                                style: const TextStyle(
                                   color: AppColor.customWhite,
                                   fontSize: 14.0,
                                   fontFamily: AppFonts.bold,

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:nova_demo/common/language/translation_services.dart';
 import 'package:nova_demo/navigation/app_pages.dart';
 import 'package:nova_demo/navigation/app_routes.dart';
 
-void main() {
+Future<void> main() async {
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
