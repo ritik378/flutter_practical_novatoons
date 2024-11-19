@@ -1,11 +1,17 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:nova_demo/common/app_color.dart';
 import 'package:nova_demo/common/app_fonts.dart';
+import 'package:nova_demo/common/app_keys.dart';
 import 'package:nova_demo/common/common_logics.dart';
+import 'package:nova_demo/common/language/language_string.dart';
+import 'package:nova_demo/dashboard/common/featured_card.dart';
+import 'package:nova_demo/dashboard/common/image_banner.dart';
+import 'package:nova_demo/dashboard/common/rated_card.dart';
 import 'package:nova_demo/dashboard/home/home_controller.dart';
+import 'package:nova_demo/navigation/app_routes.dart';
 
 class HomeView extends StatelessWidget {
   HomeView({super.key});
@@ -23,22 +29,30 @@ class HomeView extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                /// A row containing a greeting text and two icons.
+
+                /// A row containing a Hi Joy text and two icons.
                 Row(
                   children: [
-                    CommonLogics.commonText('Hi, Joe',
+                    CommonLogics.commonText(LanguageString.hiJoy.tr,
                         fontSize: 24.0, fontFamily: AppFonts.bold),
                     const Spacer(),
                     CommonLogics.setSvgImage('search_icon'),
                     const SizedBox(
                       width: 14,
                     ),
-                    CommonLogics.setSvgImage('discussion_icon'),
+                    GestureDetector(
+                        onTap: () {
+                          GetStorage().write(AppKeys.isLogin, false);
+                          Get.offAllNamed(AppRoutes.signIn);
+                        },
+                        child: CommonLogics.setSvgImage('discussion_icon')),
                   ],
                 ),
                 const SizedBox(
                   height: 15,
                 ),
+
+                /// A container with a horizontal list of items.
                 Container(
                   height: 28,
                   decoration: BoxDecoration(
@@ -60,7 +74,7 @@ class HomeView extends StatelessWidget {
                               width: 108,
                               decoration: BoxDecoration(
                                 color: homeController.selectedItemIndex.value ==
-                                        index
+                                    index
                                     ? AppColor.vibrantGreen
                                     : Colors.transparent,
                                 borderRadius: BorderRadius.circular(14),
@@ -70,10 +84,10 @@ class HomeView extends StatelessWidget {
                                   homeController.items[index],
                                   fontSize: 14.0,
                                   color:
-                                      homeController.selectedItemIndex.value ==
-                                              index
-                                          ? AppColor.primaryColor
-                                          : AppColor.customWhite,
+                                  homeController.selectedItemIndex.value ==
+                                      index
+                                      ? AppColor.primaryColor
+                                      : AppColor.customWhite,
                                   fontFamily: AppFonts.medium,
                                 ),
                               ),
@@ -86,48 +100,8 @@ class HomeView extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
 
-                /// A container with an image and a rating.
-                Container(
-                  height: 248,
-                  decoration: BoxDecoration(
-                    color: AppColor.softMintGreen,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 204,
-                          decoration: BoxDecoration(
-                            color: AppColor.customWhite,
-                            borderRadius: BorderRadius.circular(20),
-                            image: const DecorationImage(
-                              image:
-                                  AssetImage('assets/images/super_america.png'),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: Row(
-                            children: [
-                              CommonLogics.commonText('Super America',
-                                  fontFamily: AppFonts.bold, fontSize: 18.0),
-                              const Spacer(),
-                              CommonLogics.setSvgImage('star'),
-                              CommonLogics.commonText('4.5',
-                                  fontFamily: AppFonts.medium, fontSize: 14.0),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                /// A container with an image Super America and a rating.
+                const FeaturedCard(),
                 const SizedBox(
                   height: 20,
                 ),
@@ -135,10 +109,10 @@ class HomeView extends StatelessWidget {
                 /// A row containing a title and a "Show More" text.
                 Row(
                   children: [
-                    CommonLogics.commonText('Featured',
+                    CommonLogics.commonText(LanguageString.featured.tr,
                         fontFamily: AppFonts.bold, fontSize: 21.0),
                     const Spacer(),
-                    CommonLogics.commonText('Show More',
+                    CommonLogics.commonText(LanguageString.showMore.tr,
                         fontFamily: AppFonts.regular, fontSize: 12.0),
                   ],
                 ),
@@ -151,64 +125,9 @@ class HomeView extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemCount: 10,
                     itemBuilder: (context, index) {
-                      return Stack(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 15),
-                            child: Container(
-                              width: 141,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(27),
-                                image: const DecorationImage(
-                                  image: AssetImage(
-                                    'assets/images/money_heist.png',
-                                  ),
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 15),
-                            child: Container(
-                              width: 141,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(27),
-                                gradient: AppColor.fadeToBlack,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            left: 10,
-                            bottom: 11,
-                            child: SizedBox(
-                              width: 88,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  CommonLogics.commonText(
-                                      'The Think From Another World',
-                                      color: AppColor.customWhite,
-                                      fontFamily: AppFonts.bold,
-                                      fontSize: 12.0),
-                                  RatingBar.builder(
-                                    unratedColor: AppColor.customGray,
-                                    itemBuilder: (context, index) {
-                                      return const Icon(
-                                        Icons.star,
-                                        color: Colors.amber,
-                                      );
-                                    },
-                                    initialRating: 1,
-                                    itemSize: 16,
-                                    allowHalfRating: true,
-                                    onRatingUpdate: (rating) {},
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
+                      return  Padding(
+                        padding: const EdgeInsets.only(right: 15),
+                        child: RatedCard(),
                       );
                     },
                   ),
@@ -222,12 +141,12 @@ class HomeView extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    CommonLogics.commonText('You may like',
+                    CommonLogics.commonText(LanguageString.youMayLike.tr,
                         fontFamily: AppFonts.bold,
                         fontSize: 21.0,
                         color: AppColor.customWhite),
                     const Spacer(),
-                    CommonLogics.commonText('Show More',
+                    CommonLogics.commonText(LanguageString.showMore.tr,
                         fontFamily: AppFonts.regular,
                         fontSize: 12.0,
                         color: AppColor.customWhite),
@@ -247,39 +166,7 @@ class HomeView extends StatelessWidget {
                   ),
                   itemCount: 4,
                   itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              image: const DecorationImage(
-                                image:
-                                    AssetImage('assets/images/money_heist.png'),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            CommonLogics.commonText('Captain Marvel',
-                                fontFamily: AppFonts.medium,
-                                fontSize: 14.0,
-                                color: AppColor.customWhite),
-                            const Spacer(),
-                            CommonLogics.setSvgImage('star'),
-                            CommonLogics.commonText('4.5',
-                                fontFamily: AppFonts.medium,
-                                fontSize: 14.0,
-                                color: AppColor.customWhite),
-                          ],
-                        ),
-                      ],
-                    );
+                    return const ImageBanner();
                   },
                 ),
                 const SizedBox(
@@ -287,12 +174,12 @@ class HomeView extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    CommonLogics.commonText('Popular',
+                    CommonLogics.commonText(LanguageString.popular.tr,
                         fontFamily: AppFonts.bold,
                         fontSize: 21.0,
                         color: AppColor.customWhite),
                     const Spacer(),
-                    CommonLogics.commonText('Show More',
+                    CommonLogics.commonText(LanguageString.showMore.tr,
                         fontFamily: AppFonts.regular,
                         fontSize: 12.0,
                         color: AppColor.customWhite),
@@ -307,64 +194,9 @@ class HomeView extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemCount: 10,
                     itemBuilder: (context, index) {
-                      return Stack(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 15),
-                            child: Container(
-                              width: 141,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(27),
-                                image: const DecorationImage(
-                                  image: AssetImage(
-                                    'assets/images/money_heist.png',
-                                  ),
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 15),
-                            child: Container(
-                              width: 141,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(27),
-                                gradient: AppColor.fadeToBlack,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            left: 10,
-                            bottom: 11,
-                            child: SizedBox(
-                              width: 88,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  CommonLogics.commonText(
-                                      'The Think From Another World',
-                                      color: AppColor.customWhite,
-                                      fontFamily: AppFonts.bold,
-                                      fontSize: 12.0),
-                                  RatingBar.builder(
-                                    unratedColor: AppColor.customGray,
-                                    itemBuilder: (context, index) {
-                                      return const Icon(
-                                        Icons.star,
-                                        color: Colors.amber,
-                                      );
-                                    },
-                                    initialRating: 1,
-                                    itemSize: 16,
-                                    allowHalfRating: true,
-                                    onRatingUpdate: (rating) {},
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 15),
+                        child: RatedCard(),
                       );
                     },
                   ),

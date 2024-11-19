@@ -11,8 +11,11 @@ class CommonLogics {
   }
 
   static setSvgImage(String imageName, {double? height, double? width}) {
-    return SvgPicture.asset('assets/svg_images/$imageName.svg',
-        height: height, width: width);
+    return SvgPicture.asset(
+      'assets/svg_images/$imageName.svg',
+      height: height,
+      width: width,
+    );
   }
 
   static commonText(text,
@@ -50,5 +53,4 @@ class CommonLogics {
     }
     return null;
   }
-
 }

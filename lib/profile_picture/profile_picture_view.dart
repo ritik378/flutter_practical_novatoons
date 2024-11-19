@@ -59,33 +59,33 @@ class ProfilePictureView extends StatelessWidget {
                   children: [
                     // CircleAvatar with black border
                     GestureDetector(
-                        onTap: () {
-                          profilePictureController
-                              .getImage(ImageSource.gallery);
-                        },
-                        child: Container(
-                          width: 114,
-                          // The width of the container (double the radius of the outer CircleAvatar)
-                          height: 114,
-                          // The height of the container (double the radius of the outer CircleAvatar)
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle, // Ensure it's a circle
-                            border: Border.all(
-                                color: Colors.white,
-                                width:
-                                    1), // White border around the red CircleAvatar
-                          ),
-                          child: const CircleAvatar(
+                      onTap: () {
+                        profilePictureController.getImage(ImageSource.gallery);
+                      },
+                      child: Container(
+                        width: 114,
+                        // The width of the container (double the radius of the outer CircleAvatar)
+                        height: 114,
+                        // The height of the container (double the radius of the outer CircleAvatar)
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle, // Ensure it's a circle
+                          border: Border.all(
+                              color: Colors.white,
+                              width:
+                                  1), // White border around the red CircleAvatar
+                        ),
+                        child: const CircleAvatar(
+                          backgroundColor: Colors.transparent,
+                          child: CircleAvatar(
+                            radius: 54,
+                            backgroundImage: NetworkImage(
+                                'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'),
+                            // your image URL
                             backgroundColor: Colors.transparent,
-                            child: CircleAvatar(
-                              radius: 54,
-                              backgroundImage: NetworkImage(
-                                  'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'),
-                              // your image URL
-                              backgroundColor: Colors.transparent,
-                            ),
                           ),
-                        )),
+                        ),
+                      ),
+                    ),
 
                     const Positioned(
                       bottom: 0,

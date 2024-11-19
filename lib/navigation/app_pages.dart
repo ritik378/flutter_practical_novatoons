@@ -1,9 +1,14 @@
 import 'package:get/get.dart';
 import 'package:nova_demo/dashboard/dashboard_binding.dart';
 import 'package:nova_demo/dashboard/dashboard_view.dart';
+import 'package:nova_demo/dashboard/download/download_binding.dart';
+import 'package:nova_demo/dashboard/download/download_view.dart';
+import 'package:nova_demo/dashboard/favorite/favorite_binding.dart';
 import 'package:nova_demo/dashboard/home/home_binding.dart';
 import 'package:nova_demo/dashboard/home/home_controller.dart';
 import 'package:nova_demo/dashboard/home/home_view.dart';
+import 'package:nova_demo/dashboard/settings/settings_binding.dart';
+import 'package:nova_demo/dashboard/settings/settings_view.dart';
 import 'package:nova_demo/navigation/app_routes.dart';
 import 'package:nova_demo/profile_picture/ProfilePictureBinding.dart';
 import 'package:nova_demo/profile_picture/profile_picture_view.dart';
@@ -53,7 +58,23 @@ class AppPages {
     GetPage(
       name: AppRoutes.dashboard,
       page: () => DashboardView(),
-      bindings: [DashboardBinding(), HomeBinding(), SignUpBinding(), SingInBinding()],
+      bindings: [
+        DashboardBinding(),
+        HomeBinding(),
+        SingInBinding(),
+        FavoriteBinding(),
+        DownloadBinding(),
+      ],
+    ),
+    GetPage(
+      name: AppRoutes.download,
+      page: () => const DownloadView(),
+      binding: DownloadBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.settings,
+      page: () => const SettingsView(),
+      binding: SettingsBinding(),
     ),
   ];
 }

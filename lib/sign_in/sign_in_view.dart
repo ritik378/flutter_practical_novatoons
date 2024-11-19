@@ -12,9 +12,7 @@ import 'package:nova_demo/common/language/language_string.dart';
 import 'package:nova_demo/navigation/app_routes.dart';
 import 'package:nova_demo/sign_in/sign_in_controller.dart';
 
-/// A stateless widget that represents the sign-in view of the application.
 class SignInView extends StatelessWidget {
-  /// Creates a [SignInView] widget.
   SignInView({super.key});
 
   /// The controller for managing the sign-in logic.
@@ -101,8 +99,8 @@ class SignInView extends StatelessWidget {
                         startLoading();
                         Future.delayed(const Duration(seconds: 1), () {
                           stopLoading();
+                          Get.offNamed(AppRoutes.dashboard);
                           GetStorage().write(AppKeys.isLogin, true);
-                          print(GetStorage().read(AppKeys.isLogin));
                         });
                       }
                     },

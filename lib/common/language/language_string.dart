@@ -24,4 +24,25 @@ class LanguageString {
   static const String isCreatorOfColor = 'isCreatorOfColor';
   static const String next = 'next';
   static const String alreadyHaveAccount = "alreadyHaveAccount";
+  static const String home = "home";
+  static const String favorite = "favorite";
+  static const String download = "download";
+  static const String settings = "settings";
+  static const String comicBook = "comicBook";
+  static const String art= "art";
+  static const String eBook = "eBook";
+  static const String nft = "nft";
+  static const String hiJoy= "hiJoy";
+  static const String superAmerica = "superAmerica";
+  static const String featured = "featured";
+  static const String showMore = "showMore";
+  static const String thinkFrom = "thinkFrom";
+  static const String addBanner = "addBanner";
+  static const String youMayLike = "youMayLike";
+  static const captainMarvel = "captainMarvel";
+  static const rating= "rating";
+  static const String popular = "popular";
+  static const String myLibrary = "myLibrary";
+  static const String profile = "profile";
+  static const String profileName = "profileName";
 }

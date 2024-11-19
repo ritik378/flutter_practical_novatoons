@@ -5,4 +5,6 @@ class AppRoutes{
   static const String profilePicture='/profile_picture';
   static const String home='/home';
   static const String dashboard='/dashboard';
+  static const String download='/download';
+  static const String settings='/settings';
 }
