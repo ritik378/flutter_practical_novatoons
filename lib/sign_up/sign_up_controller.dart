@@ -3,32 +3,25 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class SignUpController extends GetxController {
-  var dateController = TextEditingController();
-  var genderController = TextEditingController();
-  var isChecked = false.obs;
+  /// Controller for the date input field.
+  final dateController = TextEditingController();
 
-  // Form key for validation
-  var signUpFormKey = GlobalKey<FormState>();
+  final selectedGender = ''.obs;
+  final isChecked = false.obs;
+  final signUpFormKey = GlobalKey<FormState>();
+  final passwordVisible = false.obs;
 
-  // Observables
-  var passwordVisible = false.obs;
-  var selectedGender = ''.obs;
+  void checkBoxTap() => isChecked.value = !isChecked.value;
 
-  void checkBoxTap() {
-    isChecked.value = !isChecked.value;
-  }
+  void changePasswordVisibility() =>
+      passwordVisible.value = !passwordVisible.value;
 
-  // Change password visibility
-  void changePasswordVisibility() {
-    passwordVisible.value = !passwordVisible.value;
-  }
-
-  // Handle date picker logic
+  /// Handles the date picker dialog and updates the date input field.
   Future<void> onTapDate(BuildContext context) async {
-    DateTime? pickedDate = await showDatePicker(
+    final pickedDate = await showDatePicker(
       context: context,
       lastDate: DateTime.now(),
-      firstDate: DateTime(1900), // Adjust the first date as needed
+      firstDate: DateTime(1900),
       initialDate: DateTime.now(),
     );
     if (pickedDate != null) {
@@ -36,9 +29,6 @@ class SignUpController extends GetxController {
     }
   }
 
-  // Update selected gender
-  void updateGender(String gender) {
-    selectedGender.value = gender;
-    genderController.text = gender;
-  }
+  /// Updates the selected gender.
+  void updateGender(String gender) => selectedGender.value = gender;
 }

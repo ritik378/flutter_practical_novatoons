@@ -17,7 +17,10 @@ class CustomTextFormField extends StatelessWidget {
     this.controller,
     this.validator,
     this.readOnly=false,
-    this.onTap
+    this.onTap,
+    this.maxLines=1,
+    this.fillColor=AppColor.customWhiteOpacity,
+    this.filled=true,
   });
 
   final String? hintText;
@@ -33,11 +36,15 @@ class CustomTextFormField extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool readOnly;
   final void Function()? onTap;
+  final int maxLines;
+  final Color fillColor;
+  final bool filled;
 
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: maxLines,
       obscureText: obscure,
       controller: controller,
       validator: validator,
@@ -49,8 +56,8 @@ class CustomTextFormField extends StatelessWidget {
           fontSize: inputTextSize,
           fontFamily: inputTextFamily),
       decoration: InputDecoration(
-        fillColor: AppColor.customWhiteOpacity,
-        filled: true,
+        fillColor: fillColor,
+        filled: filled,
         suffixIcon: suffixIcon,
         hintText: hintText,
         hintStyle: TextStyle(

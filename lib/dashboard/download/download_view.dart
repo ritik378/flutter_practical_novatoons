@@ -1,6 +1,5 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:nova_demo/common/app_color.dart';
 import 'package:nova_demo/common/app_fonts.dart';
@@ -23,24 +22,30 @@ class DownloadView extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  CommonLogics.commonText(LanguageString.myLibrary.tr,
-                      fontSize: 24.0, fontFamily: AppFonts.bold),
-                  const Spacer(),
-                  CommonLogics.setSvgImage('search_icon'),
-                  const SizedBox(
-                    width: 14,
+                  /// Displays the title of the library.
+                  CommonLogics.commonText(
+                    LanguageString.myLibrary.tr,
+                    fontSize: 24.0,
+                    fontFamily: AppFonts.bold,
                   ),
+                  const Spacer(),
+
+                  /// Displays the search icon.
+                  CommonLogics.setSvgImage('search_icon'),
+                  const SizedBox(width: 14),
+
+                  /// Displays the discussion icon and handles tap events.
                   GestureDetector(
-                      onTap: () {},
-                      child: CommonLogics.setSvgImage('discussion_icon')),
+                    onTap: () {},
+                    child: CommonLogics.setSvgImage('discussion_icon'),
+                  ),
                 ],
               ),
-              const SizedBox(
-                height: 15,
-              ),
+              const SizedBox(height: 15),
+
+              /// Displays the downloaded items in a grid format.
               Expanded(
                 child: GridView.builder(
-                  shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 20.0,
@@ -49,9 +54,7 @@ class DownloadView extends StatelessWidget {
                   ),
                   itemCount: 20,
                   itemBuilder: (context, index) {
-                    return  RatedCard(
-                      width: 200,
-                    );
+                    return RatedCard(width: 200);
                   },
                 ),
               ),

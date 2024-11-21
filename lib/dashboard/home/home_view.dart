@@ -1,17 +1,14 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:nova_demo/common/app_color.dart';
 import 'package:nova_demo/common/app_fonts.dart';
-import 'package:nova_demo/common/app_keys.dart';
 import 'package:nova_demo/common/common_logics.dart';
 import 'package:nova_demo/common/language/language_string.dart';
 import 'package:nova_demo/dashboard/common/featured_card.dart';
 import 'package:nova_demo/dashboard/common/image_banner.dart';
 import 'package:nova_demo/dashboard/common/rated_card.dart';
 import 'package:nova_demo/dashboard/home/home_controller.dart';
-import 'package:nova_demo/navigation/app_routes.dart';
 
 class HomeView extends StatelessWidget {
   HomeView({super.key});
@@ -29,30 +26,18 @@ class HomeView extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-
-                /// A row containing a Hi Joy text and two icons.
                 Row(
                   children: [
-                    CommonLogics.commonText(LanguageString.hiJoy.tr,
-                        fontSize: 24.0, fontFamily: AppFonts.bold),
+                    CommonLogics.commonText(LanguageString.hiJoy.tr, fontSize: 24.0, fontFamily: AppFonts.bold),
                     const Spacer(),
+                    /// Displays a search icon.
                     CommonLogics.setSvgImage('search_icon'),
-                    const SizedBox(
-                      width: 14,
-                    ),
-                    GestureDetector(
-                        onTap: () {
-                          GetStorage().write(AppKeys.isLogin, false);
-                          Get.offAllNamed(AppRoutes.signIn);
-                        },
-                        child: CommonLogics.setSvgImage('discussion_icon')),
+                    const SizedBox(width: 14),
+                    /// Displays a discussion icon.
+                    CommonLogics.setSvgImage('discussion_icon'),
                   ],
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
-
-                /// A container with a horizontal list of items.
+                const SizedBox(height: 15),
                 Container(
                   height: 28,
                   decoration: BoxDecoration(
@@ -66,15 +51,12 @@ class HomeView extends StatelessWidget {
                         itemCount: homeController.items.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
-                            onTap: () {
-                              homeController.onTapItem(index);
-                            },
+                            onTap: () => homeController.onTapItem(index),
                             child: Container(
                               height: 28,
                               width: 108,
                               decoration: BoxDecoration(
-                                color: homeController.selectedItemIndex.value ==
-                                    index
+                                color: homeController.selectedItemIndex.value == index
                                     ? AppColor.vibrantGreen
                                     : Colors.transparent,
                                 borderRadius: BorderRadius.circular(14),
@@ -83,9 +65,7 @@ class HomeView extends StatelessWidget {
                                 child: CommonLogics.commonText(
                                   homeController.items[index],
                                   fontSize: 14.0,
-                                  color:
-                                  homeController.selectedItemIndex.value ==
-                                      index
+                                  color: homeController.selectedItemIndex.value == index
                                       ? AppColor.primaryColor
                                       : AppColor.customWhite,
                                   fontFamily: AppFonts.medium,
@@ -99,62 +79,46 @@ class HomeView extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-
-                /// A container with an image Super America and a rating.
+                /// Displays a featured card.
                 const FeaturedCard(),
-                const SizedBox(
-                  height: 20,
-                ),
-
-                /// A row containing a title and a "Show More" text.
+                const SizedBox(height: 20),
                 Row(
                   children: [
-                    CommonLogics.commonText(LanguageString.featured.tr,
-                        fontFamily: AppFonts.bold, fontSize: 21.0),
+                    /// Displays the "Featured" text.
+                    CommonLogics.commonText(LanguageString.featured.tr, fontFamily: AppFonts.bold, fontSize: 21.0),
                     const Spacer(),
-                    CommonLogics.commonText(LanguageString.showMore.tr,
-                        fontFamily: AppFonts.regular, fontSize: 12.0),
+                    /// Displays the "Show More" text.
+                    CommonLogics.commonText(LanguageString.showMore.tr, fontFamily: AppFonts.regular, fontSize: 12.0),
                   ],
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
+                const SizedBox(height: 15),
                 SizedBox(
                   height: 208,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: 10,
                     itemBuilder: (context, index) {
-                      return  Padding(
+                      return Padding(
                         padding: const EdgeInsets.only(right: 15),
                         child: RatedCard(),
                       );
                     },
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
+                /// Displays a banner image.
                 CommonLogics.setPngImage('banner', height: 55),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 Row(
                   children: [
-                    CommonLogics.commonText(LanguageString.youMayLike.tr,
-                        fontFamily: AppFonts.bold,
-                        fontSize: 21.0,
-                        color: AppColor.customWhite),
+                    /// Displays the "You May Like" text.
+                    CommonLogics.commonText(LanguageString.youMayLike.tr, fontFamily: AppFonts.bold, fontSize: 21.0, color: AppColor.customWhite),
                     const Spacer(),
-                    CommonLogics.commonText(LanguageString.showMore.tr,
-                        fontFamily: AppFonts.regular,
-                        fontSize: 12.0,
-                        color: AppColor.customWhite),
+                    /// Displays the "Show More" text.
+                    CommonLogics.commonText(LanguageString.showMore.tr, fontFamily: AppFonts.regular, fontSize: 12.0, color: AppColor.customWhite),
                   ],
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
+                const SizedBox(height: 15),
                 GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
@@ -169,25 +133,17 @@ class HomeView extends StatelessWidget {
                     return const ImageBanner();
                   },
                 ),
-                const SizedBox(
-                  height: 20.0,
-                ),
+                const SizedBox(height: 20.0),
                 Row(
                   children: [
-                    CommonLogics.commonText(LanguageString.popular.tr,
-                        fontFamily: AppFonts.bold,
-                        fontSize: 21.0,
-                        color: AppColor.customWhite),
+                    /// Displays the "Popular" text.
+                    CommonLogics.commonText(LanguageString.popular.tr, fontFamily: AppFonts.bold, fontSize: 21.0, color: AppColor.customWhite),
                     const Spacer(),
-                    CommonLogics.commonText(LanguageString.showMore.tr,
-                        fontFamily: AppFonts.regular,
-                        fontSize: 12.0,
-                        color: AppColor.customWhite),
+                    /// Displays the "Show More" text.
+                    CommonLogics.commonText(LanguageString.showMore.tr, fontFamily: AppFonts.regular, fontSize: 12.0, color: AppColor.customWhite),
                   ],
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
+                const SizedBox(height: 15),
                 SizedBox(
                   height: 208,
                   child: ListView.builder(

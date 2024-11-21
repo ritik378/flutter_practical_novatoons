@@ -1,10 +1,15 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:nova_demo/common/app_color.dart';
 import 'package:nova_demo/common/app_fonts.dart';
+import 'package:nova_demo/common/app_keys.dart';
 import 'package:nova_demo/common/common_logics.dart';
+import 'package:nova_demo/common/custom_button.dart';
 import 'package:nova_demo/common/language/language_string.dart';
+import 'package:nova_demo/navigation/app_routes.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -21,54 +26,101 @@ class SettingsView extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  CommonLogics.commonText(LanguageString.profile.tr,
-                      fontSize: 24.0, fontFamily: AppFonts.bold),
+                  /// Displays the profile title.
+                  CommonLogics.commonText(
+                    LanguageString.profile.tr,
+                    fontSize: 24.0,
+                    fontFamily: AppFonts.bold,
+                  ),
                   const Spacer(),
-                  CommonLogics.setSvgImage('notification_icon'),
+
+                  /// Displays the notification icon.
+                  GestureDetector(
+                      onTap: () {
+                        Get.toNamed(AppRoutes.notifications);
+                      },
+                      child: CommonLogics.setSvgImage('notification_icon')),
                 ],
               ),
-              const SizedBox(
-                height: 25,
-              ),
+              const SizedBox(height: 25),
+
+              /// Displays the user's profile picture.
               Container(
                 width: 100,
-                // The width of the container (double the radius of the outer CircleAvatar)
                 height: 100,
-                // The height of the container (double the radius of the outer CircleAvatar)
                 decoration: BoxDecoration(
-                  shape: BoxShape.circle, // Ensure it's a circle
-                  border: Border.all(
-                      color: Colors.white,
-                      width: 1), // White border around the red CircleAvatar
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.white, width: 1),
                 ),
                 child: const CircleAvatar(
                   backgroundColor: Colors.transparent,
                   child: CircleAvatar(
                     radius: 47,
                     backgroundImage: NetworkImage(
-                        'https://preview.keenthemes.com/metronic-v4/theme_rtl/assets/pages/media/profile/profile_user.jpg'),
+                      'https://preview.keenthemes.com/metronic-v4/theme_rtl/assets/pages/media/profile/profile_user.jpg',
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 15,
+              const SizedBox(height: 15),
+
+              /// Displays the user's profile name.
+              CommonLogics.commonText(
+                LanguageString.profileName.tr,
+                fontSize: 24.0,
+                fontFamily: AppFonts.medium,
               ),
-              CommonLogics.commonText(LanguageString.profileName.tr,
-                  fontSize: 24.0, fontFamily: AppFonts.medium),
-              const SizedBox(
-                height: 25,
-              ),
+              const SizedBox(height: 25),
+
+              /// Displays the list of settings options.
               Expanded(
                 child: ListView(
+                  physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    item(image: 'my_info_icon', title: 'My Info'),
-                    item(image: 'transactions', title: 'Transactions'),
-                    item(image: 'privacy_policy_icon', title: 'Privacy Policy'),
-                    item(image: 'notification_setting_icon', title: 'Notifications Settings '),
-                    item(image: 'contact_support_icon', title: 'Contact Support'),
+                    _buildItem(
+                      image: 'my_info_icon',
+                      title: 'My Info',
+                      onTap: () => Get.toNamed(AppRoutes.myInfo),
+                    ),
+                    _buildItem(
+                      image: 'transactions',
+                      title: 'Transactions',
+                      suffix: CustomButton(
+                        buttonName: LanguageString.transactionsAmt.tr,
+                        buttonHeight: 74,
+                        buttonWidth: 74,
+                        onPressed: (startLoading, stopLoading, btnState) {},
+                      ),
+                      onTap: () => Get.toNamed(AppRoutes.transactions),
+                    ),
+                    _buildItem(
+                      image: 'privacy_policy_icon',
+                      title: 'Privacy Policy',
+                      onTap: _launchUrl,
+                    ),
+                    _buildItem(
+                      image: 'notification_setting_icon',
+                      title: 'Notifications Settings',
+                      onTap: () => Get.toNamed(AppRoutes.notificationsSettings),
+                    ),
+                    _buildItem(
+                      image: 'contact_support_icon',
+                      title: 'Contact Support',
+                      onTap: () => Get.toNamed(AppRoutes.contactSupport),
+                    ),
                   ],
                 ),
               ),
+
+              /// Displays the sign-out button.
+              CustomButton(
+                buttonName: LanguageString.signOut.tr,
+                onPressed: (startLoading, stopLoading, btnState) {
+                  GetStorage().write(AppKeys.isLogin, false);
+                  Get.offAllNamed(AppRoutes.signIn);
+                },
+              ),
+              const SizedBox(height: 53),
             ],
           ),
         ),
@@ -76,26 +128,49 @@ class SettingsView extends StatelessWidget {
     );
   }
 
-  Widget item({required String image, required String title}) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 15),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.grey[700],
-          borderRadius: BorderRadius.circular(5),
-        ),
-        height: 47,
-        child: Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.all(11),
-              child: CommonLogics.setSvgImage(image),
+  /// Builds a settings item widget.
+  Widget _buildItem({
+    required String image,
+    required String title,
+    Widget? suffix,
+    VoidCallback? onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 15),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.grey[700],
+            borderRadius: BorderRadius.circular(5),
+          ),
+          height: 47,
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              children: [
+                CommonLogics.setSvgImage(image),
+                const SizedBox(width: 10),
+                CommonLogics.commonText(
+                  title,
+                  fontSize: 18.0,
+                  fontFamily: AppFonts.medium,
+                ),
+                const Spacer(),
+                suffix ?? const SizedBox.shrink(),
+              ],
             ),
-            CommonLogics.commonText(title,
-                fontSize: 18.0, fontFamily: AppFonts.medium),
-          ],
+          ),
         ),
       ),
     );
+  }
+
+  /// Launches a URL in the default browser.
+  Future<void> _launchUrl() async {
+    final url = Uri.parse('https://flutter.dev/');
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
   }
 }

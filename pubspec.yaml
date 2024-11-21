@@ -54,6 +54,9 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   ultimate_bottom_navbar: ^0.0.7
   flutter_slidable: ^3.1.1
+  animated_custom_dropdown: ^3.1.1
+  url_launcher: ^6.3.1
+  share_plus: ^10.1.2
 
 dev_dependencies:
   flutter_test:

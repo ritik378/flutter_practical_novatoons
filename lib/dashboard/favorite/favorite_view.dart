@@ -11,7 +11,7 @@ import 'package:nova_demo/dashboard/favorite/favorite_controller.dart';
 class FavoriteView extends StatelessWidget {
   FavoriteView({super.key});
 
-  /// The controller for the favorite view, used to manage state and logic.
+  /// The controller for managing the favorite view logic.
   final FavoriteController favoriteController = Get.find();
 
   @override
@@ -26,56 +26,50 @@ class FavoriteView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 34.0),
-              CommonLogics.commonText(LanguageString.favorite.tr,
-                  fontSize: 24.0),
+              /// Displays the "Favorite" text.
+              CommonLogics.commonText(LanguageString.favorite.tr, fontSize: 24.0),
               const SizedBox(height: 16),
+              /// Displays the list of favorite items.
               Expanded(
                 child: GetBuilder<FavoriteController>(
                   builder: (controller) {
-                    final itemList = favoriteController.favoriteList;
                     return ListView.builder(
-                      itemCount: itemList.length,
+                      itemCount: controller.favoriteList.length,
                       itemBuilder: (context, index) {
-                        final item = controller.favoriteList[index];
                         return Slidable(
                           endActionPane: ActionPane(
                             extentRatio: 0.25,
                             motion: const ScrollMotion(),
                             children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(bottom: 11),
-                                  child: Container(
-                                    color: AppColor.customRed,
-                                    height: 80,
-                                    child: IconButton(
-                                      onPressed: () {
-                                        controller.removeItem(index);
-                                      },
-                                      icon: const Icon(
-                                        Icons.delete,
-                                        size: 35,
-                                        color: AppColor.customWhite,
-                                      ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 11),
+                                child: Container(
+                                  color: AppColor.customRed,
+                                  height: 80,
+                                  child: IconButton(
+                                    onPressed: () => controller.removeItem(index),
+                                    icon: const Icon(
+                                      Icons.delete,
+                                      size: 35,
+                                      color: AppColor.customWhite,
                                     ),
                                   ),
                                 ),
                               ),
                             ],
                           ),
-                          child: item,
+                          child: controller.favoriteList[index],
                         );
                       },
                     );
                   },
                 ),
               ),
+              /// Displays a button to add a new item to the favorite list.
               GetBuilder<FavoriteController>(
                 builder: (controller) {
                   return TextButton(
-                    onPressed: () {
-                      controller.addItem();
-                    },
+                    onPressed: controller.addItem,
                     child: CommonLogics.commonText(
                       'Add Item',
                       fontSize: 18.0,

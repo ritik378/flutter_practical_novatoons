@@ -33,129 +33,160 @@ class SignInView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 34),
-                // Sign in text
-                CommonLogics.commonText(LanguageString.signIn.tr),
-                const SizedBox(height: 3),
-                // Instructional text
-                CommonLogics.commonText(
-                  LanguageString.welcome.tr,
-                  fontFamily: AppFonts.regular,
-                  fontSize: 14.0,
-                  color: AppColor.customGray,
-                ),
+                _buildHeader(),
                 const SizedBox(height: 35),
-                // Email label
-                CommonLogics.commonText(
-                  LanguageString.email.tr,
-                  fontFamily: AppFonts.bold,
-                  fontSize: 18.0,
-                  color: AppColor.customWhite,
-                ),
-                const SizedBox(height: 10),
-                // Email input field
-                CustomTextFormField(
-                  hintText: LanguageString.enterEmail.tr,
-                  validator: (value) {
-                    return CommonLogics.emailValidator(value);
-                  },
-                ),
+                _buildEmailField(),
                 const SizedBox(height: 22),
-                // Password label
-                CommonLogics.commonText(
-                  LanguageString.password.tr,
-                  fontFamily: AppFonts.bold,
-                  fontSize: 18.0,
-                  color: AppColor.customWhite,
-                ),
-                const SizedBox(height: 10),
-                // Password input field with visibility toggle
-                Obx(() {
-                  return CustomTextFormField(
-                    hintText: LanguageString.enterPassword.tr,
-                    obscure: !signInController.passwordVisible.value,
-                    suffixIcon: GestureDetector(
-                      onTap: signInController.changePasswordVisibility,
-                      child: Padding(
-                        padding: const EdgeInsets.all(14),
-                        child: CommonLogics.setPngImage(
-                          signInController.passwordVisible.value
-                              ? 'visibility'
-                              : 'visibility_off',
-                          height: 24,
-                          width: 24,
-                        ),
-                      ),
-                    ),
-                  );
-                }),
+                _buildPasswordField(),
                 const Spacer(),
-
-                /// Log in button
-                Center(
-                  child: CustomButton(
-                    buttonName: LanguageString.login.tr,
-                    onPressed: (startLoading, stopLoading, btnState) {
-                      if (signInController.formKey.currentState!.validate()) {
-                        startLoading();
-                        Future.delayed(const Duration(seconds: 1), () {
-                          stopLoading();
-                          Get.offNamed(AppRoutes.dashboard);
-                          GetStorage().write(AppKeys.isLogin, true);
-                        });
-                      }
-                    },
-                  ),
-                ),
+                _buildLoginButton(),
                 const SizedBox(height: 34),
-                // Social media login options
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CommonLogics.setSvgImage('apple'),
-                    const SizedBox(width: 25),
-                    CommonLogics.setSvgImage('google'),
-                    const SizedBox(width: 25),
-                    CommonLogics.setSvgImage('facebook'),
-                  ],
-                ),
+                _buildSocialMediaLogin(),
                 const Spacer(),
-                // Sign up prompt
-                Center(
-                  child: RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: LanguageString.dontHaveAccount.tr,
-                          style: const TextStyle(
-                            color: AppColor.customGray,
-                            fontSize: 14.0,
-                            fontFamily: AppFonts.regular,
-                          ),
-                        ),
-                        WidgetSpan(
-                          child: GestureDetector(
-                            onTap: () {
-                              // Navigate to the sign-up page
-                              Get.toNamed(AppRoutes.signUp);
-                            },
-                            child: Text(
-                              LanguageString.signUp.tr,
-                              style: const TextStyle(
-                                color: AppColor.customWhite,
-                                fontSize: 14.0,
-                                fontFamily: AppFonts.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                _buildSignUpPrompt(),
                 const SizedBox(height: 10),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  /// Builds the header section of the sign-in view.
+  Widget _buildHeader() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CommonLogics.commonText(LanguageString.signIn.tr),
+        const SizedBox(height: 3),
+        CommonLogics.commonText(
+          LanguageString.welcome.tr,
+          fontFamily: AppFonts.regular,
+          fontSize: 14.0,
+          color: AppColor.customGray,
+        ),
+      ],
+    );
+  }
+
+  /// Builds the email input field.
+  Widget _buildEmailField() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CommonLogics.commonText(
+          LanguageString.email.tr,
+          fontFamily: AppFonts.bold,
+          fontSize: 18.0,
+          color: AppColor.customWhite,
+        ),
+        const SizedBox(height: 10),
+        CustomTextFormField(
+          hintText: LanguageString.enterEmail.tr,
+          validator: (value) => CommonLogics.emailValidator(value),
+        ),
+      ],
+    );
+  }
+
+  /// Builds the password input field.
+  Widget _buildPasswordField() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CommonLogics.commonText(
+          LanguageString.password.tr,
+          fontFamily: AppFonts.bold,
+          fontSize: 18.0,
+          color: AppColor.customWhite,
+        ),
+        const SizedBox(height: 10),
+        Obx(() {
+          return CustomTextFormField(
+            hintText: LanguageString.enterPassword.tr,
+            obscure: !signInController.passwordVisible.value,
+            suffixIcon: GestureDetector(
+              onTap: signInController.changePasswordVisibility,
+              child: Padding(
+                padding: const EdgeInsets.all(14),
+                child: CommonLogics.setPngImage(
+                  signInController.passwordVisible.value
+                      ? 'visibility'
+                      : 'visibility_off',
+                  height: 24,
+                  width: 24,
+                  color: AppColor.customGray,
+                ),
+              ),
+            ),
+          );
+        }),
+      ],
+    );
+  }
+
+  /// Builds the login button.
+  Widget _buildLoginButton() {
+    return Center(
+      child: CustomButton(
+        buttonName: LanguageString.login.tr,
+        onPressed: (startLoading, stopLoading, btnState) {
+          if (signInController.formKey.currentState!.validate()) {
+            startLoading();
+            Future.delayed(const Duration(seconds: 1), () {
+              stopLoading();
+              Get.offNamed(AppRoutes.dashboard);
+              GetStorage().write(AppKeys.isLogin, true);
+            });
+          }
+        },
+      ),
+    );
+  }
+
+  /// Builds the social media login options.
+  Widget _buildSocialMediaLogin() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CommonLogics.setSvgImage('apple'),
+        const SizedBox(width: 25),
+        CommonLogics.setSvgImage('google'),
+        const SizedBox(width: 25),
+        CommonLogics.setSvgImage('facebook'),
+      ],
+    );
+  }
+
+  /// Builds the sign-up prompt.
+  Widget _buildSignUpPrompt() {
+    return Center(
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: LanguageString.dontHaveAccount.tr,
+              style: const TextStyle(
+                color: AppColor.customGray,
+                fontSize: 14.0,
+                fontFamily: AppFonts.regular,
+              ),
+            ),
+            WidgetSpan(
+              child: GestureDetector(
+                onTap: () => Get.toNamed(AppRoutes.signUp),
+                child: Text(
+                  LanguageString.signUp.tr,
+                  style: const TextStyle(
+                    color: AppColor.customWhite,
+                    fontSize: 14.0,
+                    fontFamily: AppFonts.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

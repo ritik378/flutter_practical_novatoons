@@ -9,7 +9,7 @@ class CustomButton extends StatelessWidget {
       {super.key,
       this.buttonHeight = 55.0,
       this.buttonWidth = 240.0,
-      this.buttonName,
+      this.buttonName='',
       this.buttonColor = AppColor.customGreen,
       this.buttonNameColor = AppColor.customWhite,
       this.buttonNameSize = 18.0,
@@ -19,7 +19,7 @@ class CustomButton extends StatelessWidget {
   final double buttonHeight;
   final double buttonWidth;
   final double buttonBorderRadius;
-  final String? buttonName;
+  final String buttonName;
   final Color buttonNameColor;
   final double buttonNameSize;
   final String buttonNameFamily;
@@ -34,6 +34,7 @@ class CustomButton extends StatelessWidget {
       height: buttonHeight,
       width: buttonWidth,
       borderRadius:buttonBorderRadius ,
+      borderSide:BorderSide(color: AppColor.customGreen),
       color: buttonColor,
       loader: const CircularProgressIndicator(
         strokeWidth: 3.0,
