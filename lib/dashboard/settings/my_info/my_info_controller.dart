@@ -4,6 +4,9 @@ import 'package:intl/intl.dart';
 
 class MyInfoController extends GetxController {
   var dateController = TextEditingController();
+  final newPasswordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  var formKey = GlobalKey<FormState>();
   var selectedGender = ''.obs;
   var dropDownItems = [
     'Male',

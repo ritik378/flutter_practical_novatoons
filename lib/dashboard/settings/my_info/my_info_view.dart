@@ -68,65 +68,52 @@ class MyInfoView extends StatelessWidget {
                   child: CommonLogics.commonText(LanguageString.profileName.tr,
                       fontSize: 24.0, fontFamily: AppFonts.medium),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 CommonLogics.commonText(LanguageString.name.tr,
                     fontSize: 18.0, fontFamily: AppFonts.bold),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 CustomTextFormField(
                   hintText: LanguageString.enterName.tr,
                 ),
-                const SizedBox(
-                  height: 22,
-                ),
+                const SizedBox(height: 22),
                 CommonLogics.commonText(LanguageString.email.tr,
                     fontSize: 18.0, fontFamily: AppFonts.bold),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 CustomTextFormField(
                   hintText: LanguageString.enterEmail.tr,
                 ),
-                const SizedBox(
-                  height: 22,
-                ),
+                const SizedBox(height: 22),
                 CommonLogics.commonText(LanguageString.password.tr,
                     fontSize: 18.0, fontFamily: AppFonts.bold),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 CustomTextFormField(
                   hintText: LanguageString.enterPassword.tr,
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: CommonLogics.commonText(
-                      LanguageString.enterPassword.tr,
+                const SizedBox(height: 10),
+                GestureDetector(
+                  onTap: () {
+                    _showChangePasswordDialog(
+                        context); // Show change password dialog
+                  },
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: CommonLogics.commonText(
+                      LanguageString.changePassword.tr,
                       fontSize: 14.0,
                       fontFamily: AppFonts.regular,
-                      color: AppColor.redPrimary),
+                      color: AppColor.redPrimary,
+                    ),
+                  ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 CommonLogics.commonText(LanguageString.bio.tr,
                     fontSize: 18.0, fontFamily: AppFonts.bold),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 CustomTextFormField(
                   hintText: LanguageString.enterBio.tr,
                   maxLines: 3,
                 ),
-                const SizedBox(
-                  height: 22,
-                ),
+                const SizedBox(height: 22),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -134,8 +121,6 @@ class MyInfoView extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-
-                          /// Date of birth label.
                           CommonLogics.commonText(
                             LanguageString.dob.tr,
                             fontFamily: AppFonts.bold,
@@ -143,8 +128,6 @@ class MyInfoView extends StatelessWidget {
                             color: AppColor.customWhite,
                           ),
                           const SizedBox(height: 10),
-
-                          /// Date of birth input field with date picker.
                           CustomTextFormField(
                             controller: myInfoController.dateController,
                             hintText: LanguageString.selectDate.tr,
@@ -160,15 +143,11 @@ class MyInfoView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      width: 18,
-                    ),
+                    const SizedBox(width: 18),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-
-                          /// Gender label.
                           CommonLogics.commonText(
                             LanguageString.gender.tr,
                             fontFamily: AppFonts.bold,
@@ -176,13 +155,11 @@ class MyInfoView extends StatelessWidget {
                             color: AppColor.customWhite,
                           ),
                           const SizedBox(height: 10),
-
-                          /// Gender selection dropdown.
                           CommonLogics.customDropDown(
                             itemList: myInfoController.dropDownItems,
                             onChanged: (value) {
                               myInfoController.selectedDropDownItem.value =
-                              value!;
+                                  value!;
                             },
                           ),
                         ],
@@ -190,18 +167,135 @@ class MyInfoView extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 99,
-                ),
+                const SizedBox(height: 99),
                 Center(
                   child: CustomButton(
-                      buttonWidth: 243,
-                      buttonHeight: 47,
-                      onPressed: (startLoading, stopLoading, btnState) {},
-                      buttonName: LanguageString.done.tr),
+                    buttonWidth: 243,
+                    buttonHeight: 47,
+                    onPressed: (startLoading, stopLoading, btnState) {},
+                    buttonName: CommonLogics.commonText(
+                      LanguageString.done.tr,
+                      fontSize: 18.0,
+                      fontFamily: AppFonts.bold,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 64),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showChangePasswordDialog(BuildContext context) {
+    Get.dialog(
+      Dialog(
+        backgroundColor: AppColor.primaryColor,
+        elevation: 3,
+        shadowColor: Colors.yellow,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Form(
+            key: myInfoController.formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const SizedBox(width: 24),
+                    const Spacer(),
+                    CommonLogics.commonText(
+                      LanguageString.changePassword.tr,
+                      fontSize: 18.0,
+                      fontFamily: AppFonts.bold,
+                      color: AppColor.customWhite,
+                    ),
+                    const Spacer(),
+                    IconButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: const Icon(
+                        Icons.close,
+                        size: 20,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 60),
+                CommonLogics.commonText(
+                  LanguageString.newPassword.tr,
+                  fontSize: 18.0,
+                  fontFamily: AppFonts.bold,
+                ),
+                const SizedBox(height: 10),
+                CustomTextFormField(
+                  controller: myInfoController.newPasswordController,
+                  hintText: LanguageString.enterPassword.tr,
+                  hintTextSize: 14,
+                  hintTextFamily: AppFonts.regular,
+                  validator: (value) {
+                    return CommonLogics.passwordValidator(value);
+                  },
+                ),
+                const SizedBox(height: 22),
+                CommonLogics.commonText(
+                  LanguageString.confirmPassword.tr,
+                  fontSize: 18.0,
+                  fontFamily: AppFonts.bold,
+                ),
+                const SizedBox(height: 10),
+                CustomTextFormField(
+                  controller: myInfoController.confirmPasswordController,
+                  hintText: LanguageString.confirmPassword.tr,
+                  validator: (value) {
+                    return CommonLogics.passwordValidator(value);
+                  },
+                  hintTextSize: 14,
+                  hintTextFamily: AppFonts.regular,
+                ),
+                const SizedBox(height: 88),
+                Center(
+                  child: CustomButton(
+                    buttonWidth: 243,
+                    buttonHeight: 47,
+                    buttonBorderRadius: 62,
+                    onPressed: (startLoading, stopLoading, btnState) {
+                      if (myInfoController.formKey.currentState!.validate()) {
+                        if (myInfoController.newPasswordController.text ==
+                            myInfoController.confirmPasswordController.text) {
+                          Get.back();
+                          Get.snackbar(
+                            LanguageString.subject.tr,
+                            LanguageString.passwordChanged.tr,
+                            colorText: AppColor.customWhite,
+                            backgroundColor: AppColor.vibrantGreen,
+                          );
+                        } else {
+                          Get.snackbar(
+                            LanguageString.error.tr,
+                            LanguageString.passwordNotMatch,
+                            colorText: AppColor.customWhite,
+                            backgroundColor: AppColor.redPrimary,
+                          );
+                        }
+                      }
+                    },
+                    buttonName: CommonLogics.commonText(
+                      LanguageString.done.tr,
+                      fontSize: 18.0,
+                      fontFamily: AppFonts.bold,
+                    ),
+                  ),
                 ),
                 const SizedBox(
-                  height: 64,
+                  height: 50,
                 ),
               ],
             ),

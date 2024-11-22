@@ -80,4 +80,19 @@ class LanguageString {
   static const String enterMessage = 'enterMessage';
   static const String sendMessage = 'sendMessage';
   static const String mySupportMessages = 'mySupportMessages';
+  static const String continueReading = 'continueReading';
+  static const String downloaded = 'downloaded';
+  static const String free = 'free';
+  static const String description = 'description';
+  static const String author = 'author';
+  static const String avengersConflict = 'avengersConflict';
+  static const String rateThisComic = 'rateThisComic';
+  static const String donate = 'donate';
+  static const String recommendations = 'recommendations';
+  static const String newPassword = 'newPassword';
+  static const String confirmPassword = 'confirmPassword';
+  static const String successful = 'successful';
+  static const String passwordChanged = 'passwordChanged';
+  static const String error = 'error';
+  static const passwordNotMatch = 'passwordNotMatch';
 }

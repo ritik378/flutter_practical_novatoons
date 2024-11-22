@@ -18,7 +18,8 @@ class ContactSupportView extends StatelessWidget {
       color: AppColor.primaryColor,
       child: Scaffold(
         backgroundColor: AppColor.primaryColor,
-        appBar: CommonLogics.buildAppBar(title: LanguageString.contactSupport.tr),
+        appBar:
+            CommonLogics.buildAppBar(title: LanguageString.contactSupport.tr),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18.0),
           child: SingleChildScrollView(
@@ -87,14 +88,20 @@ class ContactSupportView extends StatelessWidget {
                 const SizedBox(height: 63),
                 Center(
                   child: CustomButton(
-                    buttonName: LanguageString.sendMessage.tr,
+                    buttonName: CommonLogics.commonText(
+                        LanguageString.sendMessage.tr,
+                        fontSize: 18.0,
+                        fontFamily: AppFonts.bold),
                     onPressed: (startLoading, stopLoading, btnState) {},
                   ),
                 ),
                 const SizedBox(height: 15),
                 Center(
                   child: CustomButton(
-                    buttonName: LanguageString.mySupportMessages.tr,
+                    buttonName: CommonLogics.commonText(
+                        LanguageString.mySupportMessages.tr,
+                        fontSize: 18.0,
+                        fontFamily: AppFonts.bold),
                     buttonColor: AppColor.primaryColor,
                     onPressed: (startLoading, stopLoading, btnState) {},
                   ),

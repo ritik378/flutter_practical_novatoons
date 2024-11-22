@@ -259,7 +259,10 @@ class SignUpView extends StatelessWidget {
   Widget _buildNextButton() {
     return Center(
       child: CustomButton(
-        buttonName: LanguageString.next.tr,
+        buttonName: CommonLogics.commonText(
+            LanguageString.next.tr,
+            fontSize: 18.0,
+            fontFamily: AppFonts.bold) ,
         onPressed: (startLoading, stopLoading, btnState) {
           if (signUpController.signUpFormKey.currentState!.validate()) {
             startLoading();

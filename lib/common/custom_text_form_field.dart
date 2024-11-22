@@ -21,6 +21,7 @@ class CustomTextFormField extends StatelessWidget {
     this.maxLines=1,
     this.fillColor=AppColor.customWhiteOpacity,
     this.filled=true,
+
   });
 
   final String? hintText;
@@ -39,6 +40,7 @@ class CustomTextFormField extends StatelessWidget {
   final int maxLines;
   final Color fillColor;
   final bool filled;
+
 
 
   @override

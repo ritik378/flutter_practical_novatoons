@@ -86,7 +86,10 @@ class SettingsView extends StatelessWidget {
                       image: 'transactions',
                       title: 'Transactions',
                       suffix: CustomButton(
-                        buttonName: LanguageString.transactionsAmt.tr,
+                        buttonName: CommonLogics.commonText(
+                            LanguageString.transactionsAmt.tr,
+                            fontSize: 18.0,
+                            fontFamily: AppFonts.bold),
                         buttonHeight: 74,
                         buttonWidth: 74,
                         onPressed: (startLoading, stopLoading, btnState) {},
@@ -114,7 +117,10 @@ class SettingsView extends StatelessWidget {
 
               /// Displays the sign-out button.
               CustomButton(
-                buttonName: LanguageString.signOut.tr,
+                buttonName: CommonLogics.commonText(
+                    LanguageString.signOut.tr,
+                    fontSize: 18.0,
+                    fontFamily: AppFonts.bold) ,
                 onPressed: (startLoading, stopLoading, btnState) {
                   GetStorage().write(AppKeys.isLogin, false);
                   Get.offAllNamed(AppRoutes.signIn);

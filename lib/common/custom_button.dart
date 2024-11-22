@@ -9,20 +9,16 @@ class CustomButton extends StatelessWidget {
       {super.key,
       this.buttonHeight = 55.0,
       this.buttonWidth = 240.0,
-      this.buttonName='',
+       required this.buttonName,
       this.buttonColor = AppColor.customGreen,
-      this.buttonNameColor = AppColor.customWhite,
-      this.buttonNameSize = 18.0,
-      this.buttonNameFamily = AppFonts.bold,this.buttonBorderRadius=62.0,required this.onPressed,});
+      this.buttonBorderRadius = 10.0,
+      required this.onPressed});
 
   final Color buttonColor;
   final double buttonHeight;
   final double buttonWidth;
+  final Widget buttonName;
   final double buttonBorderRadius;
-  final String buttonName;
-  final Color buttonNameColor;
-  final double buttonNameSize;
-  final String buttonNameFamily;
   final Function(Function startLoading,Function stopLoading,ButtonState btnState) onPressed;
 
   @override
@@ -34,7 +30,7 @@ class CustomButton extends StatelessWidget {
       height: buttonHeight,
       width: buttonWidth,
       borderRadius:buttonBorderRadius ,
-      borderSide:BorderSide(color: AppColor.customGreen),
+      borderSide:const BorderSide(color: AppColor.customGreen),
       color: buttonColor,
       loader: const CircularProgressIndicator(
         strokeWidth: 3.0,
@@ -42,10 +38,7 @@ class CustomButton extends StatelessWidget {
           Colors.white,
         ),
       ),
-      child: CommonLogics.commonText(buttonName,
-          color: buttonNameColor,
-          fontSize: buttonNameSize,
-          fontFamily: buttonNameFamily),
+      child: buttonName,
     );
   }
 }

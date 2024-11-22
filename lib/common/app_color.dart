@@ -13,7 +13,8 @@ class AppColor {
   static const Color redPrimary = Color.fromRGBO(255, 0, 0, 1.0);
   static const Color grayMedium = Color.fromRGBO(165, 165, 165, 1.0);
   static const Color lightGrey = Color.fromRGBO(181, 181, 181, 1);
-
+  static const Color softGray = Color.fromRGBO(196, 196, 196, 1);
+  static const Color midnightBlue = Color.fromRGBO(31, 28, 44, 1.0);
   static const LinearGradient fadeToBlack = LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,

@@ -130,7 +130,10 @@ class SignInView extends StatelessWidget {
   Widget _buildLoginButton() {
     return Center(
       child: CustomButton(
-        buttonName: LanguageString.login.tr,
+        buttonName: CommonLogics.commonText(
+            LanguageString.login.tr,
+            fontSize: 18.0,
+            fontFamily: AppFonts.bold) ,
         onPressed: (startLoading, stopLoading, btnState) {
           if (signInController.formKey.currentState!.validate()) {
             startLoading();

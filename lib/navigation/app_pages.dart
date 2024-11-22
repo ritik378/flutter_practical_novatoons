@@ -4,6 +4,8 @@ import 'package:nova_demo/dashboard/dashboard_view.dart';
 import 'package:nova_demo/dashboard/download/download_binding.dart';
 import 'package:nova_demo/dashboard/download/download_view.dart';
 import 'package:nova_demo/dashboard/favorite/favorite_binding.dart';
+import 'package:nova_demo/dashboard/home/detail/Detail_binding.dart';
+import 'package:nova_demo/dashboard/home/detail/detail_view.dart';
 import 'package:nova_demo/dashboard/home/home_binding.dart';
 import 'package:nova_demo/dashboard/home/home_controller.dart';
 import 'package:nova_demo/dashboard/home/home_view.dart';
@@ -110,6 +112,11 @@ class AppPages {
       name: AppRoutes.contactSupport,
       page: () => const ContactSupportView(),
       binding: ContactSupportBinding(),
+    ),
+    GetPage(
+      name:AppRoutes.detail,
+      page:()=>const DetailView(),
+      binding: DetailBinding(),
     ),
   ];
 }

@@ -31,6 +31,7 @@ class CommonLogics {
       fontFamily = AppFonts.bold}) {
     return Text(
       text,
+      textAlign: TextAlign.justify,
       style: TextStyle(
         fontSize: fontSize,
         color: color,
@@ -96,7 +97,6 @@ class CommonLogics {
         bool centerTitle = true,
       String leadingIcon = 'back_arrow_icon'}) {
     return AppBar(
-      elevation: 0.0,
       backgroundColor: AppColor.primaryColor,
       surfaceTintColor: AppColor.primaryColor,
       leading: GestureDetector(
@@ -116,4 +116,5 @@ class CommonLogics {
       centerTitle: centerTitle,
     );
   }
+
 }
