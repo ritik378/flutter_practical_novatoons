@@ -5,6 +5,8 @@ import 'package:nova_demo/dashboard/download/download_binding.dart';
 import 'package:nova_demo/dashboard/download/download_view.dart';
 import 'package:nova_demo/dashboard/favorite/favorite_binding.dart';
 import 'package:nova_demo/dashboard/home/detail/Detail_binding.dart';
+import 'package:nova_demo/dashboard/home/detail/author_profile/author_profile_binding.dart';
+import 'package:nova_demo/dashboard/home/detail/author_profile/author_profile_view.dart';
 import 'package:nova_demo/dashboard/home/detail/detail_view.dart';
 import 'package:nova_demo/dashboard/home/home_binding.dart';
 import 'package:nova_demo/dashboard/home/home_controller.dart';
@@ -114,9 +116,14 @@ class AppPages {
       binding: ContactSupportBinding(),
     ),
     GetPage(
-      name:AppRoutes.detail,
-      page:()=>const DetailView(),
+      name: AppRoutes.detail,
+      page: () => DetailView(),
       binding: DetailBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.authorProfile,
+      page: () =>  AuthorProfileView(),
+      binding: AuthorProfileBinding(),
     ),
   ];
 }

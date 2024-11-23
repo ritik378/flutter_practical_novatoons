@@ -20,6 +20,7 @@ class SignUpView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ColorfulSafeArea(
       color: AppColor.primaryColor,
+      bottom: false,
       child: Scaffold(
         backgroundColor: AppColor.primaryColor,
         body: Padding(

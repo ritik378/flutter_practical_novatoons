@@ -13,4 +13,5 @@ class AppRoutes{
   static const String notifications='/notifications';
   static const String contactSupport='/contactSupport';
   static const String detail='/detail';
+  static const String authorProfile='/authorProfile';
 }

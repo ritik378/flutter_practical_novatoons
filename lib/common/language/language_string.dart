@@ -95,4 +95,9 @@ class LanguageString {
   static const String passwordChanged = 'passwordChanged';
   static const String error = 'error';
   static const passwordNotMatch = 'passwordNotMatch';
+  static const donation = 'donation';
+  static const yourBalance = 'yourBalance';
+  static const enterCredits = 'enterCredits';
+  static const amtInUSD = 'amtInUSD';
+  static const plRateThisComic='Please rate this comic';
 }

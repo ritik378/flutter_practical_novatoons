@@ -94,7 +94,7 @@ class CommonLogics {
       {String? title,
       double titleSize = 24.0,
       String titleFamily = AppFonts.bold,
-        bool centerTitle = true,
+      bool centerTitle = true,
       String leadingIcon = 'back_arrow_icon'}) {
     return AppBar(
       backgroundColor: AppColor.primaryColor,
@@ -109,12 +109,11 @@ class CommonLogics {
         ),
       ),
       title: CommonLogics.commonText(
-        title??'',
+        title ?? '',
         fontSize: titleSize,
         fontFamily: titleFamily,
       ),
       centerTitle: centerTitle,
     );
   }
-
 }

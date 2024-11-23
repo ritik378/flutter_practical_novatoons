@@ -109,6 +109,10 @@ class TranslationServices extends Translations {
       LanguageString.passwordChanged: 'Password Changed Successfully',
       LanguageString.error: 'Error',
       LanguageString.passwordNotMatch: 'Passwords do not match',
+      LanguageString.donation: 'Donation',
+      LanguageString.yourBalance: 'Your Balance',
+      LanguageString.enterCredits:'Enter the credits you want to donate',
+      LanguageString.amtInUSD:'Amount in USD',
     },
   };
 }

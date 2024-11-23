@@ -7,14 +7,17 @@ import 'package:nova_demo/common/app_fonts.dart';
 import 'package:nova_demo/common/common_logics.dart';
 import 'package:nova_demo/common/custom_app_bar.dart';
 import 'package:nova_demo/common/custom_button.dart';
-import 'package:nova_demo/common/custom_text_form_field.dart';
 import 'package:nova_demo/common/featured_card.dart';
 import 'package:nova_demo/common/image_banner.dart';
 import 'package:nova_demo/common/language/language_string.dart';
+import 'package:nova_demo/dashboard/home/detail/detail_controller.dart';
+import 'package:nova_demo/navigation/app_routes.dart';
 
-/// A view that displays the details of a comic book.
 class DetailView extends StatelessWidget {
-  const DetailView({super.key});
+  DetailView({super.key});
+
+  /// Controller for managing the state of the DetailView.
+  final DetailController detailController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -177,7 +180,12 @@ class DetailView extends StatelessWidget {
   Widget _buildAuthorRow() {
     return Row(
       children: [
-        CommonLogics.setPngImage('author_image', height: 48, width: 48),
+        GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRoutes.authorProfile);
+            },
+            child: CommonLogics.setPngImage(
+                'author_image', height: 48, width: 48)),
         const SizedBox(width: 10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -212,19 +220,37 @@ class DetailView extends StatelessWidget {
     );
   }
 
-  /// Builds a rating bar for the detail view.
+  /// Builds the rating bar for the detail view.
   Widget _buildRatingBar() {
-    return RatingBar.builder(
-      minRating: 1,
-      unratedColor: AppColor.softGray,
-      direction: Axis.horizontal,
-      allowHalfRating: true,
-      itemCount: 5,
-      itemBuilder: (context, _) => const Icon(
-        Icons.star,
-        color: Colors.amber,
-      ),
-      onRatingUpdate: (rating) {},
+    return Stack(
+      children: [
+        Obx(() {
+          return RatingBar.builder(
+            minRating: 1,
+            initialRating: detailController.initialRating.value,
+            unratedColor: AppColor.softGray,
+            direction: Axis.horizontal,
+            allowHalfRating: true,
+            itemCount: 5,
+            itemBuilder: (context, _) =>
+            const Icon(
+              Icons.star,
+              color: Colors.amber,
+            ),
+            onRatingUpdate: (rating) {},
+          );
+        }),
+        GestureDetector(
+          onTap: () {
+            _showRatingDialog();
+          },
+          child: Container(
+            color: Colors.transparent,
+            height: 42,
+            width: 200,
+          ),
+        ),
+      ],
     );
   }
 
@@ -266,7 +292,189 @@ class DetailView extends StatelessWidget {
       ),
     );
   }
+
+  /// Shows the donation dialog.
   void _showDonationDialog() {
+    Get.dialog(
+      Dialog(
+        backgroundColor: AppColor.primaryColor,
+        elevation: 4,
+        shadowColor: Colors.yellow,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const SizedBox(width: 40),
+                  const Spacer(),
+                  CommonLogics.commonText(
+                    LanguageString.donation.tr,
+                    fontSize: 18.0,
+                    fontFamily: AppFonts.medium,
+                  ),
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: AppColor.customWhite,
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.close,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 35),
+              Center(
+                child: CommonLogics.setPngImage('donation',
+                    height: 130, width: 235),
+              ),
+              const SizedBox(height: 22),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[600],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Row(
+                          children: [
+                            CommonLogics.setPngImage('author_image',
+                                height: 48, width: 48),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      CommonLogics.commonText(
+                                        LanguageString.author.tr,
+                                        fontFamily: AppFonts.regular,
+                                        fontSize: 12.0,
+                                        color: AppColor.customWhite,
+                                      ),
+                                      CommonLogics.commonText(
+                                        '3 CR/3 USD',
+                                        fontFamily: AppFonts.medium,
+                                        fontSize: 13.0,
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      CommonLogics.commonText(
+                                        LanguageString.chrisEvans.tr,
+                                        fontFamily: AppFonts.regular,
+                                        fontSize: 12.0,
+                                        color: AppColor.customWhite,
+                                      ),
+                                      CommonLogics.commonText(
+                                        LanguageString.yourBalance.tr,
+                                        fontFamily: AppFonts.medium,
+                                        fontSize: 13.0,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      const Divider(color: AppColor.lightGrey, thickness: 1),
+                      const SizedBox(height: 15),
+                      CommonLogics.commonText(LanguageString.enterCredits.tr,
+                          fontSize: 18.0, fontFamily: AppFonts.medium),
+                      const SizedBox(height: 20),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Row(
+                          children: [
+                            Container(
+                              height: 50,
+                              width: 144,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[400],
+                                borderRadius: BorderRadius.circular(9),
+                              ),
+                              child: Center(
+                                child: CommonLogics.commonText(
+                                  '3 CR',
+                                  fontSize: 22.0,
+                                  fontFamily: AppFonts.bold,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 32),
+                            Column(
+                              children: [
+                                CommonLogics.commonText('',
+                                    fontSize: 12.0,
+                                    fontFamily: AppFonts.regular),
+                                CommonLogics.commonText('3 USD',
+                                    fontFamily: AppFonts.medium,
+                                    fontSize: 22.0),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 30),
+              Center(
+                child: CustomButton(
+                  buttonWidth: 243,
+                  buttonHeight: 47,
+                  buttonBorderRadius: 62,
+                  onPressed: (startLoading, stopLoading, btnState) {
+                    Get.back();
+                  },
+                  buttonName: CommonLogics.commonText(
+                    LanguageString.done.tr,
+                    fontSize: 18.0,
+                    fontFamily: AppFonts.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 46),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Shows the rating dialog.
+  void _showRatingDialog() {
     Get.dialog(
       Dialog(
         backgroundColor: AppColor.primaryColor,
@@ -276,104 +484,72 @@ class DetailView extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Form(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    const SizedBox(width: 24),
-                    const Spacer(),
-                    CommonLogics.commonText(
-                      "Donation",
-                      fontSize: 18.0,
-                      fontFamily: AppFonts.bold,
-                      color: AppColor.customWhite,
-                    ),
-                    const Spacer(),
-                    IconButton(
-                      onPressed: () {
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  const SizedBox(width: 40),
+                  const Spacer(),
+                  CommonLogics.commonText(
+                    LanguageString.rateThisComic.tr,
+                    fontSize: 18.0,
+                    fontFamily: AppFonts.medium,
+                  ),
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: GestureDetector(
+                      onTap: () {
                         Get.back();
                       },
-                      icon: const Icon(
-                        Icons.close,
-                        size: 20,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: AppColor.customWhite,
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.close,
+                          size: 20,
+                        ),
                       ),
                     ),
-                  ],
-                ),
-                const SizedBox(height: 35),
-                CommonLogics.setPngImage('donation',height: 130,width: 235),
-                const SizedBox(height: 25),
-                CommonLogics.commonText(
-                  LanguageString.newPassword.tr,
-                  fontSize: 18.0,
-                  fontFamily: AppFonts.bold,
-                ),
-                const SizedBox(height: 10),
-                CustomTextFormField(
-                  hintText: LanguageString.enterPassword.tr,
-                  hintTextSize: 14,
-                  hintTextFamily: AppFonts.regular,
-                  validator: (value) {
-                    return CommonLogics.passwordValidator(value);
-                  },
-                ),
-                const SizedBox(height: 22),
-                CommonLogics.commonText(
-                  LanguageString.confirmPassword.tr,
-                  fontSize: 18.0,
-                  fontFamily: AppFonts.bold,
-                ),
-                const SizedBox(height: 10),
-                CustomTextFormField(
-                  hintText: LanguageString.confirmPassword.tr,
-                  validator: (value) {
-                    return CommonLogics.passwordValidator(value);
-                  },
-                  hintTextSize: 14,
-                  hintTextFamily: AppFonts.regular,
-                ),
-                const SizedBox(height: 88),
-                Center(
-                  child: CustomButton(
-                    buttonWidth: 243,
-                    buttonHeight: 47,
-                    buttonBorderRadius: 62,
-                    onPressed: (startLoading, stopLoading, btnState) {
-                      if (true) {
-                        if (true) {
-                          Get.back();
-                          Get.snackbar(
-                            LanguageString.subject.tr,
-                            LanguageString.passwordChanged.tr,
-                            colorText: AppColor.customWhite,
-                            backgroundColor: AppColor.vibrantGreen,
-                          );
-                        } else {
-                          Get.snackbar(
-                            LanguageString.error.tr,
-                            LanguageString.passwordNotMatch,
-                            colorText: AppColor.customWhite,
-                            backgroundColor: AppColor.redPrimary,
-                          );
-                        }
-                      }
-                    },
-                    buttonName: CommonLogics.commonText(
-                      LanguageString.done.tr,
-                      fontSize: 18.0,
-                      fontFamily: AppFonts.bold,
-                    ),
                   ),
+                ],
+              ),
+              const SizedBox(height: 65),
+              CommonLogics.commonText(LanguageString.plRateThisComic.tr,
+                  fontSize: 16.0, fontFamily: AppFonts.medium),
+              const SizedBox(height: 35),
+              RatingBar.builder(
+                minRating: 1,
+                initialRating: detailController.initialRating.value,
+                unratedColor: AppColor.softGray,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemBuilder: (context, _) =>
+                const Icon(
+                  Icons.star,
+                  color: Colors.amber,
                 ),
-                const SizedBox(
-                  height: 50,
-                ),
-              ],
-            ),
+                onRatingUpdate: (rating) {
+                  detailController.setRating(rating);
+                },
+              ),
+              const SizedBox(height: 72),
+              CustomButton(
+                  buttonName: CommonLogics.commonText(LanguageString.done.tr,
+                      fontFamily: AppFonts.bold, fontSize: 18.0),
+                  buttonWidth: 243,
+                  buttonHeight: 47,
+                  buttonBorderRadius: 62.0,
+                  onPressed: (startLoading, stopLoading, btnState) {
+                    Get.back();
+                  }),
+              const SizedBox(height: 35),
+            ],
           ),
         ),
       ),
