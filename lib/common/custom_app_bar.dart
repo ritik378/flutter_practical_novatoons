@@ -29,7 +29,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: color,
       surfaceTintColor: color,
       leading: leading,
-
       actions:actions,
       title: CommonLogics.commonText(
         title ??'',

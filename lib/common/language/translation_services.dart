@@ -51,7 +51,7 @@ class TranslationServices extends Translations {
       LanguageString.popular: 'Popular',
       LanguageString.myLibrary: 'My Library',
       LanguageString.thinkFrom: 'The Think From Another World',
-      LanguageString.hiJoy: 'Hi,Joy',
+      LanguageString.hiJoy: 'Hi, Joy',
       LanguageString.profile: 'Profile',
       LanguageString.profileName: 'David Willom',
       LanguageString.signOut: 'Sign Out',
@@ -113,6 +113,7 @@ class TranslationServices extends Translations {
       LanguageString.yourBalance: 'Your Balance',
       LanguageString.enterCredits:'Enter the credits you want to donate',
       LanguageString.amtInUSD:'Amount in USD',
+      LanguageString.featured: 'Featured',
     },
   };
 }

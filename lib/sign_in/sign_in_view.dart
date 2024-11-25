@@ -22,30 +22,31 @@ class SignInView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ColorfulSafeArea(
       color: AppColor.primaryColor,
+      bottom: false,
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
         backgroundColor: AppColor.primaryColor,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18),
           child: Form(
             key: signInController.formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 34),
-                _buildHeader(),
-                const SizedBox(height: 35),
-                _buildEmailField(),
-                const SizedBox(height: 22),
-                _buildPasswordField(),
-                const Spacer(),
-                _buildLoginButton(),
-                const SizedBox(height: 34),
-                _buildSocialMediaLogin(),
-                const Spacer(),
-                _buildSignUpPrompt(),
-                const SizedBox(height: 10),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 34),
+                  _buildHeader(),
+                  const SizedBox(height: 35),
+                  _buildEmailField(),
+                  const SizedBox(height: 22),
+                  _buildPasswordField(),
+                  const SizedBox(height: 109),
+                  _buildLoginButton(),
+                  const SizedBox(height: 34),
+                  _buildSocialMediaLogin(),
+                 const SizedBox(height: 114),
+                  _buildSignUpPrompt(),
+                ],
+              ),
             ),
           ),
         ),
@@ -102,26 +103,28 @@ class SignInView extends StatelessWidget {
           color: AppColor.customWhite,
         ),
         const SizedBox(height: 10),
-        Obx(() {
-          return CustomTextFormField(
-            hintText: LanguageString.enterPassword.tr,
-            obscure: !signInController.passwordVisible.value,
-            suffixIcon: GestureDetector(
-              onTap: signInController.changePasswordVisibility,
-              child: Padding(
-                padding: const EdgeInsets.all(14),
-                child: CommonLogics.setPngImage(
-                  signInController.passwordVisible.value
-                      ? 'visibility'
-                      : 'visibility_off',
-                  height: 24,
-                  width: 24,
-                  color: AppColor.customGray,
+        Obx(
+          () {
+            return CustomTextFormField(
+              hintText: LanguageString.enterPassword.tr,
+              obscure: !signInController.passwordVisible.value,
+              suffixIcon: GestureDetector(
+                onTap: signInController.changePasswordVisibility,
+                child: Padding(
+                  padding: const EdgeInsets.all(14),
+                  child: CommonLogics.setPngImage(
+                    signInController.passwordVisible.value
+                        ? 'visibility'
+                        : 'visibility_off',
+                    height: 24,
+                    width: 24,
+                    color: AppColor.customGray,
+                  ),
                 ),
               ),
-            ),
-          );
-        }),
+            );
+          },
+        ),
       ],
     );
   }
@@ -130,10 +133,8 @@ class SignInView extends StatelessWidget {
   Widget _buildLoginButton() {
     return Center(
       child: CustomButton(
-        buttonName: CommonLogics.commonText(
-            LanguageString.login.tr,
-            fontSize: 18.0,
-            fontFamily: AppFonts.bold) ,
+        buttonName: CommonLogics.commonText(LanguageString.login.tr,
+            fontSize: 18.0, fontFamily: AppFonts.bold),
         onPressed: (startLoading, stopLoading, btnState) {
           if (signInController.formKey.currentState!.validate()) {
             startLoading();

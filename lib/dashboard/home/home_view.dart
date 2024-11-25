@@ -62,7 +62,7 @@ class HomeView extends StatelessWidget {
 
   Widget _buildCategoryList() {
     return Container(
-      height: 28,
+      height: 30,
       decoration: BoxDecoration(
         color: AppColor.softMintGreen,
         borderRadius: BorderRadius.circular(14),
@@ -76,8 +76,8 @@ class HomeView extends StatelessWidget {
               return GestureDetector(
                 onTap: () => homeController.onTapItem(index),
                 child: Container(
-                  height: 28,
-                  width: 108,
+                  height: 30,
+                  width: 98,
                   decoration: BoxDecoration(
                     color: homeController.selectedItemIndex.value == index
                         ? AppColor.vibrantGreen

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:nova_demo/common/app_color.dart';
 import 'package:nova_demo/common/app_fonts.dart';
 import 'package:nova_demo/common/common_logics.dart';
+import 'package:nova_demo/common/custom_app_bar.dart';
 import 'package:nova_demo/common/custom_button.dart';
 import 'package:nova_demo/common/custom_text_form_field.dart';
 import 'package:nova_demo/common/language/language_string.dart';
@@ -23,6 +24,9 @@ class SignUpView extends StatelessWidget {
       bottom: false,
       child: Scaffold(
         backgroundColor: AppColor.primaryColor,
+        appBar: CustomAppBar(
+          leading: CommonLogics.buildBackButton(),
+        ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18.0),
           child: Form(
@@ -31,8 +35,8 @@ class SignUpView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildBackButton(),
-                  const SizedBox(height: 34),
+                 // _buildBackButton(),
+                 // const SizedBox(height: 34),
                   _buildHeader(),
                   const SizedBox(height: 35),
                   _buildTextField(LanguageString.firstName.tr, LanguageString.enterFirstName.tr),
@@ -52,6 +56,7 @@ class SignUpView extends StatelessWidget {
                   _buildSocialMediaLogin(),
                   const SizedBox(height: 30),
                   _buildSignInPrompt(),
+                  const SizedBox(height: 78,),
                 ],
               ),
             ),
@@ -61,13 +66,7 @@ class SignUpView extends StatelessWidget {
     );
   }
 
-  /// Builds the back button widget.
-  Widget _buildBackButton() {
-    return GestureDetector(
-      onTap: () => Get.back(),
-      child: CommonLogics.setPngImage('back_arrow', height: 24, width: 24),
-    );
-  }
+
 
   /// Builds the header section of the sign-up view.
   Widget _buildHeader() {
